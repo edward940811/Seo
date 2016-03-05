@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @project.title %>
+</p>
+
+<div class="panel panel-primary">
+<%= link_to 'New', new_project_checklist_path(@checklist) %>
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
+</div>
+<h1><%= link_to 'New', new_project_checklist_path(@project) %></h1>
+
+ <% @checklists.each do |checklist| %>
+      <tr>
+        <td><%= checklist.title %></td>
+        <td><%= checklist.description %></td>
+        <td><%= checklist.status %></td>
+        <td><%= checklists.description_id %></td>
+        <td><%= link_to 'Show', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
