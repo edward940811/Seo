@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   get 'static_pages/help'
+  get 'static_pages/users'
   #get 'project'  => 'projects#index'
-
+  resources :users do
+    resources :user_projects 
+  end
+  
   resources :projects do
     resources :checklists
   end

@@ -1,0 +1,7 @@
+<% @users = User.all %>
+<% @users.each do |user| %>
+  <p><%= user.name %></p>
+  <p><%= user.email %></p>
+  <p><%= link_to "Projects" , user_user_projects_path(user) , class: "btn btn-primary btn-lg" %></p>
+
+<% end %>
