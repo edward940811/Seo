@@ -6,12 +6,13 @@ Rails.application.routes.draw do
   get 'static_pages/users'
   #get 'project'  => 'projects#index'
   resources :users do
-    resources :user_projects 
+    resources :projects 
   end
   
-  resources :projects do
+  resources :projects, only: [] do
     resources :checklists
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -6,11 +6,10 @@
 </p>
 
 <div class="panel panel-primary">
-<%= link_to 'New', new_project_checklist_path(@project) %>
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'New', new_project_checklist_path(@user, @project) %>
+<%= link_to 'Edit', edit_user_project_path(@user, @project) %> |
+<%= link_to 'Back', user_projects_path(@user) %>
 </div>
-<h1><%= link_to 'New', new_project_checklist_path(@project) %></h1>
 
  <% @checklists.each do |checklist| %>
       <tr>

@@ -1,16 +1,17 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :permission_validate
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = @user.projects.all
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
     @checklists = @project.checklists
   end
 
@@ -30,7 +31,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        UserProject.create user: @user, project: @project
+        format.html { redirect_to user_project_path(@user, @project), notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -69,8 +71,18 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
+    def set_user
+      @user = User.find(params[:user_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:title, :description)
+    end
+
+    def permission_validate
+      if current_user.id != @user.id
+        redirect_to root_path, error: 'You do not have the permission on this project'
+      end
     end
 end
