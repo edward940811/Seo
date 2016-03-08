@@ -1,4 +1,5 @@
 class ChecklistsController < ApplicationController
+    before_action :set_user
     
   def new
     @project = Project.find(params[:project_id])
@@ -10,7 +11,7 @@ class ChecklistsController < ApplicationController
     @checklist = @project.checklists.build(checklist_params)
 
     if @checklist.save
-      redirect_to project_path(@project)
+      redirect_to user_project_path(@user , @project)
     else
       render :new
     end
@@ -21,7 +22,7 @@ class ChecklistsController < ApplicationController
     @project = Project.find(params[:project_id])
     @checklist = @project.checklists.find(params[:id])
     @checklist.destroy
-    redirect_to project_path(@project), alert: "文章已刪除"
+    redirect_to user_project_path(@user , @project), alert: "文章已刪除"
   end
  
  
@@ -31,4 +32,10 @@ class ChecklistsController < ApplicationController
  def checklist_params
    params.require(:checklist).permit(:title , :description)
  end
+ 
+ 
+ def set_user
+      @user = current_user.id
+ end
+
 end

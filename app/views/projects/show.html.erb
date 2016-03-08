@@ -6,17 +6,36 @@
 </p>
 
 <div class="panel panel-primary">
-<%= link_to 'New', new_project_checklist_path(@user, @project) %>
-<%= link_to 'Edit', edit_user_project_path(@user, @project) %> |
-<%= link_to 'Back', user_projects_path(@user) %>
-</div>
-
- <% @checklists.each do |checklist| %>
+<table>
+  <div class="panel-heading">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  </div>
+  <tbody>
+    <% @checklists.each do |checklist| %>
       <tr>
         <td><%= checklist.title %></td>
         <td><%= checklist.description %></td>
         <td><%= checklist.status %></td>
         <td><%= checklist.description_id %></td>
-        
+        <td><%= link_to 'Edit', edit_project_checklist_path(@project, checklist) %></td>
+        <td><%= link_to 'Destroy', project_checklist_path(@project, checklist), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+
+<%= link_to 'New', new_project_checklist_path(@project) %>
+<%= link_to 'Edit', edit_user_project_path(@user, @project) %> |
+<%= link_to 'Back', user_projects_path(@user) %>
+</div>
+
