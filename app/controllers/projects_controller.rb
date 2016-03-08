@@ -46,6 +46,9 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        User.find(params[:owners]).each do |user| #optimize this line
+          UserProject.create user: user, project: @project
+        end
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
