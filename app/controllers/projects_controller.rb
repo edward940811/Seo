@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :update, :destroy]
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   before_action :permission_validate
 
@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+     @project = @user.projects.find(params[:id])
   end
 
   # POST /projects
@@ -44,6 +45,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+     @project = @user.projects.find(params[:id])
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -60,7 +62,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_path, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to user_projects_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

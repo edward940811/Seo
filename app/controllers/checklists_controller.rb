@@ -9,7 +9,7 @@ class ChecklistsController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @checklist = @project.checklists.build(checklist_params)
-
+   
     if @checklist.save
       redirect_to user_project_path(@user , @project)
     else
@@ -17,6 +17,24 @@ class ChecklistsController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find(params[:project_id])
+    @checklist = @project.checklists.find(params[:id])
+  end
+  
+  def update
+    @project = Project.find(params[:project_id])
+    @checklist = @project.checklists.find(params[:id])
+    respond_to do |format|
+      if @checklist.update(checklist_params)
+        format.html { redirect_to user_project_path(@user , @project), notice: 'Project was successfully updated.' }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   
   def destroy
     @project = Project.find(params[:project_id])
@@ -30,7 +48,7 @@ class ChecklistsController < ApplicationController
  private
 
  def checklist_params
-   params.require(:checklist).permit(:title , :description)
+   params.require(:checklist).permit(:title , :description , :status)
  end
  
  

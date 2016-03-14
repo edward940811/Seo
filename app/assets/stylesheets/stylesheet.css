@@ -1,0 +1,65 @@
+h1 {
+  padding-left: 100px;
+  padding-top: 50px;
+  color: #CC6600;
+  font-size: 60px;
+}
+h4 {
+  padding-left: 60px;
+  padding-top: 40px;
+  color: #CC6600;
+  font-size: 40px;
+}
+.progress{
+  width:90%;
+}
+
+footer {
+  text-align:center;
+}
+.table th{
+  font-size: 25px;
+}
+.table td{
+  font-size: 18px;
+}
+.jumbotron p{
+  padding-left: 65px;
+}
+.col-md-5 p{
+  padding-top: 75px;
+}
+.col-md-4 p{
+  padding-top: 20px;
+}
+
+.col-md-10 {
+  padding-top: 35px;
+}
+.btn {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+}
+
+#Img1 {
+  opacity: 0.5; 
+  max-width: 100px;
+  max-height: 100px;
+}
+
+#Users {
+  padding-top: 30px;
+}
+#checklistboard{
+  padding-top: 45px;
+  font-size: 30px;
+}
+
+#progressinside p{
+  padding-top: 20px;
+}
+
+#homewords{
+   color: #FFFFFF;
+}

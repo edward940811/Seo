@@ -1,0 +1,26 @@
+<div class="container" style="padding-top: 1%;">
+  <div class="panel panel-default" style="background-color:rgba(255,255,255,0.7)">
+   <div class="panel-body">
+     
+      <%= form_for([@project , @checklist]) do |f| %>
+      
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :title %>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br>
+          <%= f.text_area :description %>
+        </div>
+        <div class="field">
+          <%= f.label :status %><br>
+          <%= f.check_box :status %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
+
+   </div>
+  </div>
+ </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306054617) do
+ActiveRecord::Schema.define(version: 20160313074756) do
 
   create_table "checklists", force: :cascade do |t|
     t.string   "title"
@@ -26,8 +26,10 @@ ActiveRecord::Schema.define(version: 20160306054617) do
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "progress"
+    t.integer  "totalchecklist"
   end
 
   create_table "user_projects", force: :cascade do |t|
