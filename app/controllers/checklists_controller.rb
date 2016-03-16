@@ -11,6 +11,7 @@ class ChecklistsController < ApplicationController
     @checklist = @project.checklists.build(checklist_params)
    
     if @checklist.save
+      ProjectChecklist.create project_id: @project.id , checklist_id: @checklist.id
       redirect_to user_project_path(@user , @project)
     else
       render :new
@@ -20,11 +21,13 @@ class ChecklistsController < ApplicationController
   def edit
     @project = Project.find(params[:project_id])
     @checklist = @project.checklists.find(params[:id])
+    @project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
   end
   
   def update
     @project = Project.find(params[:project_id])
     @checklist = @project.checklists.find(params[:id])
+    @project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
     respond_to do |format|
       if @checklist.update(checklist_params)
         format.html { redirect_to user_project_path(@user , @project), notice: 'Project was successfully updated.' }

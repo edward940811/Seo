@@ -1,3 +1,4 @@
 class Checklist < ActiveRecord::Base
-    belongs_to :project
+    has_many :projectchecklists
+    has_many :project , through: :projectchecklists
 end
