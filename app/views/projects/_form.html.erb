@@ -24,14 +24,22 @@
     <%= f.text_area :description %>
   </div>
   
-  <div class="field">
-    <%= f.label :contributors %><br>
-    <select class="form-control">
-    <% User.all.each do |contributors| %>
-      <option > <%= contributors.email %> </option>
-    <% end %>
-   </select>
-  </div>
+  <% if @project.id != nil %>
+    <div class="field">
+      <%= f.label :contributors %><br>
+      <select class="form-control" form="edit_project_<%= @project.id %>" name="project[owners][]" multiple>
+      <% User.all.each do |contributor| %>
+        <% if @project.users.pluck(:id).include? contributor.id %>
+          <option value=<%= contributor.id %> selected="selected">
+            <%= contributor.email %>
+          </option>
+        <% else %>
+          <option value=<%= contributor.id %>> <%= contributor.email %> </option>
+        <% end %>
+      <% end %>
+     </select>
+    </div>
+  <% end %>
   
   <div class="actions">
     <%= f.submit %>

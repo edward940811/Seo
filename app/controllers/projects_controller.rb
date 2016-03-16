@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :destroy]
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-  before_action :permission_validate
+  before_action :validate_permission!, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -48,10 +48,15 @@ class ProjectsController < ApplicationController
      @project = @user.projects.find(params[:id])
     respond_to do |format|
       if @project.update(project_params)
-        User.find(params[:owners]).each do |user| #optimize this line
-          UserProject.create user: user, project: @project
+        current_owners = @project.users.pluck(:id)
+        deletion_ids = current_owners.reject {|id| project_owners.include? id.to_s}
+        @project.user_projects.where(user_id: deletion_ids).delete_all
+        current_owners = @project.users.pluck(:id)
+        creation_ids = project_owners.reject {|id| current_owners.include? id.to_i}
+        creation_ids.each do |creation_id|
+          UserProject.create user_id: creation_id, project: @project
         end
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to user_project_path(current_user, @project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -88,6 +93,16 @@ class ProjectsController < ApplicationController
     def permission_validate
       if current_user.id != @user.id
         redirect_to root_path, error: 'You do not have the permission on this project'
+      end
+    end
+
+    def project_owners
+      params[:project][:owners]
+    end
+
+    def validate_permission!
+      if not current_user.projects.pluck(:id).include?(params[:id].to_i)
+        redirect_to root_path, error: "你沒有觀看此專案的權限喔～"
       end
     end
 end
