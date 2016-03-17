@@ -2,48 +2,51 @@ class ChecklistsController < ApplicationController
     before_action :set_user
     
   def new
-    @project = Project.find(params[:project_id])
-    @checklist = @project.checklists.new
+    #@project = Project.find(params[:project_id])
+    #@checklist = @project.checklists.new
+     @checklist = Checklist.new
   end
   
   def create
-    @project = Project.find(params[:project_id])
-    @checklist = @project.checklists.build(checklist_params)
-   
+    @checklist = Checklist.new(checklist_params)
+    #@project = Project.find(params[:project_id])
     if @checklist.save
-      ProjectChecklist.create project_id: @project.id , checklist_id: @checklist.id
-      redirect_to user_project_path(@user , @project)
+      #ProjectChecklist.create project_id: @project.id , checklist_id: @checklist.id
+      redirect_to root_path
     else
       render :new
     end
   end
 
   def edit
-    @project = Project.find(params[:project_id])
-    @checklist = @project.checklists.find(params[:id])
-    @project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
+    #@project = Project.find(params[:project_id])
+    #@checklist = @project.checklists.find(params[:id])
+    #@project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
+     @checklist = Checklist.find(params[:id])
   end
   
   def update
-    @project = Project.find(params[:project_id])
-    @checklist = @project.checklists.find(params[:id])
-    @project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
+    #@project = Project.find(params[:project_id])
+    #@checklist = @project.checklists.find(params[:id])
+    #@project_checklist = ProjectChecklist.find_by_project_id_and_checklist_id(params[:project_id],params[:id])
+    @checklist = Checklist.find(params[:id])
     respond_to do |format|
-      if @checklist.update(checklist_params)
-        format.html { redirect_to user_project_path(@user , @project), notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+        
+        format.html { redirect_to checklists_path, notice: 'Checklist was successfully updated.' }
+        format.json { render :show, status: :ok, location: @checklist }
+  
     end
   end
   
+  def index
+    @checklists = Checklist.all
+  end
+  
   def destroy
-    @project = Project.find(params[:project_id])
-    @checklist = @project.checklists.find(params[:id])
+    #@project = Project.find(params[:project_id])
+    @checklist = Checklist.find(params[:id])
     @checklist.destroy
-    redirect_to user_project_path(@user , @project), alert: "文章已刪除"
+    redirect_to checklist_path, alert: "CHECKLIST已刪除"
   end
  
  

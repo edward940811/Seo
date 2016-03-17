@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
      @project = @user.projects.find(params[:id])
-     
+     @checklists = Checklist.all
   end
 
   # POST /projects
@@ -57,6 +57,16 @@ class ProjectsController < ApplicationController
         creation_ids.each do |creation_id|
           UserProject.create user_id: creation_id, project: @project
         end
+        
+        current_checklists = @project.checklists.pluck(:id)
+        deletion_ids = current_checklists.reject {|id| project_getchecklists.include? id.to_s}
+        @project.project_checklists.where(checklist_id: deletion_ids).delete_all
+        current_checklists = @project.checklists.pluck(:id)
+        creation_ids = project_getchecklists.reject {|id| current_checklists.include? id.to_i}
+        creation_ids.each do |creation_id|
+        ProjectChecklist.create project_id: params[:id] , checklist_id: creation_id
+        end
+      
         format.html { redirect_to user_project_path(current_user, @project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -99,6 +109,10 @@ class ProjectsController < ApplicationController
 
     def project_owners
       params[:project][:owners]
+    end
+    
+    def project_getchecklists
+      params[:project][:getchecklists]
     end
 
     def validate_permission!

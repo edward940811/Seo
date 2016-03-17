@@ -13,7 +13,7 @@
       <% if user_signed_in? %>
       <div class="col-md-4">
         <p><%= link_to "Projects", user_projects_path(current_user) , class: "btn btn-primary btn-lg" %></p><br>
-        <p><%= link_to "Users", static_pages_users_path , class: "btn btn-primary btn-lg" %></p>
+        <p><%= link_to "Checklists", checklists_path , class: "btn btn-primary btn-lg" %></p>
       </div>
       <% end %>
     

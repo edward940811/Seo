@@ -1,5 +1,23 @@
 <h1>Editing Project</h1>
 
 <%= render 'form' %>
+  
+  <%= form_for([@user, @project]) do |f| %>
+    <div class="field">
+      <%= f.label :checklists %><br>
+      <select class="form-control" form="edit_project_<%= @project.id %>" name="project[getchecklists][]" multiple>
+      <% @checklists.each do |checklist| %>
+        <% if @project.checklists.pluck(:id).include? checklist.id %>
+          <option value=<%= checklist.id %> selected="selected">
+            <%= checklist.description %>
+          </option>
+        <% else %>
+          <option value=<%= checklist.id %>> <%= checklist.description %> </option>
+        <% end %>
+      <% end %>
+     </select>
+    </div>
+    <% end %>
+ 
 
 <%= link_to 'Back', user_projects_path(@user) %>
