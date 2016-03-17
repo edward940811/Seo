@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   
   resources :projects, only: [] do
     #resources :checklists 
-    resources :project_checklists ,to: 'project_checklist#new', as: 'checklists'
+    resources :project_checklists, as: 'checklists'
+    resources :project_checklists
   end
   
   

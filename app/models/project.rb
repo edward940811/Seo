@@ -5,8 +5,9 @@ class Project < ActiveRecord::Base
     has_many :project_checklists
 
     def progress
-      finished_count = self.checklists.where(status: true).size
-       finished_count.to_f * 100 / self.checklists.size.to_f
+      project_checklists = self.project_checklists
+      finished_count = project_checklists.where(status: true).size
+      finished_count.to_f * 100 / project_checklists.size.to_f
     end
 
 end

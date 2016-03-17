@@ -30,19 +30,17 @@
     </div>
   </div>
 
-  <% @checklists.each do |checklist| %>
+  <% @project_checklists.each do |project_checklist| %>
   <div class="row">
     <div class="col-md-11 col-md-offset-1">
       <div class="panel panel-default" style="width: 80%; height:100px;background-color:rgba(255,255,255,0.8)">
         <div class="panel-body" id="checklistboard" >
         <div class="row">
         <tr>
-          <div class="col-md-2"><%= checklist.title %></div>
-          <div class="col-md-2"><%= checklist.description %></div>
-          <div class="col-md-2"><%= checklist.status %></div>
-          <div class="col-md-2"><%= checklist.description_id %></div>
-          <div class="col-md-2"><%= link_to 'Edit', edit_project_checklist_path(@project, checklist) %></div>
-          <div class="col-md-2"><%= link_to 'Destroy', project_checklist_path(@project, checklist), method: :delete,
+          <div class="col-md-2"><%= project_checklist.checklist.title %></div>
+          <div class="col-md-2"><%= project_checklist.description %></div>
+          <div class="col-md-2"><%= link_to 'Edit', edit_project_checklist_path(@project, project_checklist) %></div>
+          <div class="col-md-2"><%= link_to 'Destroy', project_checklist_path(@project, project_checklist), method: :delete,
             data: { confirm: 'Are you sure?' } %></div>
         </tr>
          </div>

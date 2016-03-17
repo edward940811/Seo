@@ -19,8 +19,6 @@
         <tr>
           <div class="col-md-2"><%= checklist.title %></div>
           <div class="col-md-2"><%= checklist.description %></div>
-          <div class="col-md-2"><%= checklist.status %></div>
-          <div class="col-md-2"><%= checklist.description_id %></div>
           <div class="col-md-2"><%= link_to 'Edit', edit_checklist_path(checklist) %></div>
           <div class="col-md-2"><%= link_to 'Destroy', checklist_path(checklist), method: :delete,
             data: { confirm: 'Are you sure?' } %></div>
