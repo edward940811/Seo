@@ -21,7 +21,7 @@ class ProjectManager
     current_checklists = @project.checklists.pluck(:id)
     creation_ids = project_getchecklists.reject {|id| current_checklists.include? id.to_i}
     creation_ids.each do |creation_id|
-    ProjectChecklist.create project_id: params[:id] , checklist_id: creation_id
+    ProjectChecklist.create project_id: @project.id , checklist_id: creation_id
     end
   end
         

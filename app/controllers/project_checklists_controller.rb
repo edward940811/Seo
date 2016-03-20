@@ -1,13 +1,13 @@
 class ProjectChecklistsController < ApplicationController
-  before_action :set_project
+  before_action :set_project 
   before_action :set_project_checklist, only: [:edit, :update, :destroy, :show]
   
   def new
-    @checklist = Checklists.new
+    @checklist = Checklist.new
   end
   
   def create
-    @checklist = Checklists.new checklist_params
+    @checklist = Checklist.new checklist_params
     if @checklist.save
       ProjectChecklist.create project: @project , checklist: @checklist
       redirect_to user_project_path(current_user, @project)
@@ -39,7 +39,7 @@ class ProjectChecklistsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find params[:project_id]
+    @project = Project.find(params[:project_id])
   end
 
   def set_project_checklist

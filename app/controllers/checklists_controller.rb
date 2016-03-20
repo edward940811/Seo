@@ -1,9 +1,8 @@
 class ChecklistsController < ApplicationController
   before_action :set_checklist, only: [:edit, :update, :destroy, :show]
+  before_action :checklist_params , only: [:update]
     
   def new
-    #@project = Project.find(params[:project_id])
-    #@checklist = @project.checklists.new
      @checklist = Checklist.new
   end
   
@@ -23,8 +22,13 @@ class ChecklistsController < ApplicationController
   
   def update
     respond_to do |format|
-      format.html { redirect_to checklists_path, notice: 'Checklist was successfully updated.' }
-      format.json { render :show, status: :ok, location: @checklist }
+       if @checklist.update(checklist_params)
+        format.html { redirect_to checklists_path, notice: 'Checklist was successfully updated.' }
+        format.json { render :show, status: :ok, location: @checklist }
+      else
+        format.html { render :edit }
+        format.json { render json: @checklist.errors, status: :unprocessable_entity }
+      end
     end
   end
   
