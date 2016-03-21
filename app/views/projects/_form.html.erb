@@ -1,3 +1,4 @@
+<% @project = ProjectDecorator.new @project %>
 <div class="container" style="padding-top: 1%;">
   <div class="panel panel-default" style="background-color:rgba(255,255,255,0.7)">
    <div class="panel-body">
@@ -29,7 +30,7 @@
       <%= f.label :contributors %><br>
       <select class="form-control" form="edit_project_<%= @project.id %>" name="project[owners][]" multiple>
       <% User.all.each do |contributor| %>
-        <% if @project.users.pluck(:id).include? contributor.id %>
+        <% if @project.has_contributor? contributor %>
           <option value=<%= contributor.id %> selected="selected">
             <%= contributor.email %>
           </option>
@@ -39,6 +40,22 @@
       <% end %>
      </select>
     </div>
+
+    <div class="field">
+      <%= f.label :checklists %><br>
+      <select class="form-control" form="edit_project_<%= @project.id %>" name="project[getchecklists][]" multiple>
+      <% @checklists.each do |checklist| %>
+        <% if @project.checklists.pluck(:id).include? checklist.id %>
+          <option value=<%= checklist.id %> selected="selected">
+            <%= checklist.description %>
+          </option>
+        <% else %>
+          <option value=<%= checklist.id %>> <%= checklist.description %> </option>
+        <% end %>
+      <% end %>
+     </select>
+    </div>
+
   <% end %>
   
   <div class="actions">

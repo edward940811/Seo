@@ -1,5 +1,5 @@
 class ProjectChecklistsController < ApplicationController
-  before_action :set_project 
+  before_action :set_project
   before_action :set_project_checklist, only: [:edit, :update, :destroy, :show]
   
   def new

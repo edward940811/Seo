@@ -4,6 +4,14 @@ class ProjectDecorator
     @project = project 
   end
 
+  def to_param
+    @project.id.to_s
+  end
+
+  def has_contributor?(contributor)
+    @project.users.pluck(:id).include? contributor.id
+  end
+
   def progress
     project_checklists = self.project_checklists
     finished_count = project_checklists.where(status: true).size
