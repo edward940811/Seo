@@ -1,0 +1,24 @@
+<%= form_for :project_checklist, url: project_checklists_path(@project),
+  method: :update, remote: true do |f| %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, name: 'checklist[title]' %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, name: 'checklist[description]' %>
+  </div>
+  <div class="field">
+    <%= f.label "comment" %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.check_box :status %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "create a new checklist for this project"%>
+  </div>
+<% end %>

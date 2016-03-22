@@ -9,8 +9,12 @@ class ProjectChecklistsController < ApplicationController
   def create
     @checklist = Checklist.new checklist_params
     if @checklist.save
-      ProjectChecklist.create project: @project , checklist: @checklist
-      redirect_to user_project_path(current_user, @project)
+      ProjectChecklist.create project_checklist_params.merge({project: @project, checklist: @checklist})
+      respond_to do |format|
+        format.html { redirect_to user_project_path(current_user, @project),
+                      notice: 'checklist created' }
+        format.js
+      end
     else
       render :new
     end
@@ -22,7 +26,7 @@ class ProjectChecklistsController < ApplicationController
   def destroy
     @project_checklist.destroy
     respond_to do |format|
-      format.html { redirect_to user_projects_path(current_user, @project),
+      format.html { redirect_to user_project_path(current_user, @project),
                     notice: 'ProjectChecklist was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -31,11 +35,11 @@ class ProjectChecklistsController < ApplicationController
   private
 
   def project_checklist_params
-    params.require(:project_checklist).permit(:title , :description , :status)
+    params.require(:project_checklist).permit(:description , :status)
   end
 
   def checklist_params
-    params.require(:checklist).permit(:title , :description)
+    params.require(:checklist).permit(:title, :description)
   end
 
   def set_project

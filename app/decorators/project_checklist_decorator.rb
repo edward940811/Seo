@@ -4,6 +4,14 @@ class ProjectChecklistDecorator
     @project_checklist = project_checklist 
   end
 
+  def global_title
+    @project_checklist.checklist.title
+  end
+
+  def global_description
+    @project_checklist.checklist.description
+  end
+
   def to_param
     @project_checklist.id.to_s
   end
