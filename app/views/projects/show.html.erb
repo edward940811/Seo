@@ -1,4 +1,5 @@
 <% @project = ProjectDecorator.new @project %>
+
 <p id="notice"><%= notice %></p>
 <div class = "row">
   <div class="col-md-10 col-md-offset-1">
@@ -38,7 +39,7 @@
         <div class="panel-body" id="checklistboard" >
         <div class="row">
         <tr>
-          <div class="col-md-2"><%= project_checklist.checklist.title %></div>
+          <div class="col-md-2"><%= link_to project_checklist.checklist.title , project_checklist_path(@project, project_checklist) %></div>
           <div class="col-md-2"><%= project_checklist.description %></div>
           <div class="col-md-2"><%= link_to 'Edit', edit_project_checklist_path(@project, project_checklist) %></div>
           <div class="col-md-2"><%= link_to 'Destroy', project_checklist_path(@project, project_checklist), method: :delete,
