@@ -13,14 +13,27 @@ class ProjectChecklistsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to user_project_path(current_user, @project),
                       notice: 'checklist created' }
-        format.js
-      end
+        format.js 
+    end
     else
       render :new
     end
   end
   
   def edit
+   
+  end
+  
+  def update
+    respond_to do |format|
+      if @project.update(project_params)
+        format.html { redirect_to user_project_path(current_user, @project), notice: 'ProjectChecklist was successfully updated.' }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
   end
   
   def destroy
@@ -44,6 +57,7 @@ class ProjectChecklistsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+    #@project.project_checklists.pluck(:project_id)
   end
 
   def set_project_checklist

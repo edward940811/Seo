@@ -11,6 +11,7 @@ gem "devise", "~> 3.4.1"
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'sdoc',         '0.4.0', group: :doc
 gem 'activesupport-decorators'
+gem 'draper', '~> 1.3'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

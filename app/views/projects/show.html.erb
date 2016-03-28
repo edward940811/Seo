@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" id="addtest">
     <% @project_checklists.each do |project_checklist| %>
       <div class="col-md-11 col-md-offset-1">
         <div class="panel panel-default" style="width: 80%; height:100px;background-color:rgba(255,255,255,0.8)">
@@ -40,7 +40,11 @@
             <tr>
               <div class="col-md-2"><%= link_to project_checklist.checklist.title , project_checklist_path(@project, project_checklist) %></div>
               <div class="col-md-2"><%= project_checklist.description %></div>
-              <div class="col-md-2"><%= link_to 'Edit', edit_project_checklist_path(@project, project_checklist) %></div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#edit-checklist-modal">
+                  Edit
+                </button>
+              </div>
               <div class="col-md-2"><%= link_to 'Destroy', project_checklist_path(@project, project_checklist), method: :delete,
                 data: { confirm: 'Are you sure?' } %></div>
             </tr>
@@ -60,4 +64,18 @@
   </div>
 </div>
 
+<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<button>Get External Content</button>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#div1").load("addnewjava.txt");
+    });
+});
+</script>
+
+
 <%= render 'new_checklist_modal'%>
+<%= render 'edit_checklist_modal'%>
+"

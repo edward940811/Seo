@@ -1,2 +1,9 @@
 $('#new-checklist-modal').modal('hide');
-alert("checklist: \"<%= @checklist.title %>\" created")
+
+$('#new-checklist-modal').submit(function() {
+
+    $('#new-checklist-modal').modal('hide');
+    return false;
+});
+
+
