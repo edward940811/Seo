@@ -41,7 +41,7 @@
               <div class="col-md-2"><%= link_to project_checklist.checklist.title , project_checklist_path(@project, project_checklist) %></div>
               <div class="col-md-2"><%= project_checklist.description %></div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#edit-checklist-modal">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#edit-checklist-modal-<%= project_checklist.id %>">
                   Edit
                 </button>
               </div>
@@ -64,6 +64,12 @@
   </div>
 </div>
 
+<%= render 'new_checklist_modal'%>
+<% @project.project_checklists.each do |project_checklist| %>
+  <% @project_checklist = project_checklist %>
+  <%= render 'edit_checklist_modal'%>
+<% end %>
+
 <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
 
 <button>Get External Content</button>
@@ -75,7 +81,3 @@ $(document).ready(function(){
 });
 </script>
 
-
-<%= render 'new_checklist_modal'%>
-<%= render 'edit_checklist_modal'%>
-"
