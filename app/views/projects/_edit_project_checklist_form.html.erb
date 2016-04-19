@@ -1,8 +1,8 @@
-  <%= form_for @project_checklist, url: edit_project_checklist_path(@project , @project_checklist), method: :put, remote: true do |f| %>
+  <%= form_for @project_checklist, url: project_checklist_path(@project , @project_checklist), method: :put, remote: true do |f| %>
 
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_area :description, name: 'checklist[description]' %>
+    <%= f.text_area :description %>
   </div>
 
   <div class="field">
@@ -11,7 +11,12 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "create a new checklist for this project"%>
+    <%= f.submit "edit checklist for this project" , :class => "btn btn-default" %>
   </div>
+  
+  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
   
 <% end %>

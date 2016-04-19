@@ -1,9 +1,0 @@
-    <div class="col-md-11 col-md-offset-1">
-      <div class="panel panel-default" style="width: 80%; height:100px;background-color:rgba(255,255,255,0.8)">
-        <div class="panel-body" id="checklistboard" >
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#new-checklist-modal">
-            New
-          </button>
-        </div>
-      </div>
-    </div>

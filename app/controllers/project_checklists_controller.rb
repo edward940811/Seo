@@ -26,9 +26,10 @@ class ProjectChecklistsController < ApplicationController
   
   def update
     respond_to do |format|
-      if @project.update(project_params)
+      if @project_checklist.update(project_checklist_params)
         format.html { redirect_to user_project_path(current_user, @project), notice: 'ProjectChecklist was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
+        format.js { alert("Bello")}
       else
         format.html { render :edit }
         format.json { render json: @project.errors, status: :unprocessable_entity }
